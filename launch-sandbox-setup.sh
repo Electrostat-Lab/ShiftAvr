@@ -1,8 +1,6 @@
 source setup-sanbox.sh
 source common-variables.sh
 
-confirmDownload
-
 setupAvrDude
 
 if [[ $? -gt 0 ]]; then 
