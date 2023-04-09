@@ -1,5 +1,5 @@
 # <img src="https://user-images.githubusercontent.com/60224159/230797593-dafd6c8f-17fc-401f-a766-1461a048430f.png" width="120" height="60"> ShiftAvr
-A modern implementation of avr-core and GNU libraries for avr microcontroller uints purely written in C.
+A modern implementation of avr-core and GNU libraries for avr microcontroller units purely written in C.
 
 ## This project is composed of several subprojects: 
 - [x] shiftavr-core: A low-level API that provides a direct implementation to the internal avr-units.
