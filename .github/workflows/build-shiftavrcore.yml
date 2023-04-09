@@ -10,10 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+    
     - name: setup-avr-toolchain
       run: chmod +rwx ./launch-sandbox-setup.sh && ./launch-sandbox-setup.sh
       
-    - uses: actions/checkout@v3
     - name: compile-link-assemble libshiftavr
       run: chmod +rwx ./helper-scripts/project-impl/compile-all.sh && ./helper-scripts/project-impl/compile-all.sh
