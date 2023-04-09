@@ -9,7 +9,7 @@ function compile() {
     cd ${source_dir}
     cmake "-DAVR_HOME=${avrhome}" \
           "-DTARGET=${target}" \
-          -v --build -S . -B "./build/${target}"
+          -v -S . -B "./build/${target}"
     cmake --build "./build/${target}"
     cd ${temp}
 }
