@@ -1,3 +1,0 @@
-/home/twisted/GradleProjects/ShiftAvr/shiftavr-core/build/atmega328p/CMakeFiles/rebuild_cache.dir
-/home/twisted/GradleProjects/ShiftAvr/shiftavr-core/build/atmega328p/CMakeFiles/edit_cache.dir
-/home/twisted/GradleProjects/ShiftAvr/shiftavr-core/build/atmega328p/CMakeFiles/shiftavr.dir
