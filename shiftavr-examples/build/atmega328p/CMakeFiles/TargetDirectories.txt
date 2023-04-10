@@ -1,0 +1,3 @@
+/home/twisted/GradleProjects/ShiftAvr/shiftavr-examples/build/atmega328p/CMakeFiles/rebuild_cache.dir
+/home/twisted/GradleProjects/ShiftAvr/shiftavr-examples/build/atmega328p/CMakeFiles/edit_cache.dir
+/home/twisted/GradleProjects/ShiftAvr/shiftavr-examples/build/atmega328p/CMakeFiles/hello_uart.c.elf.dir

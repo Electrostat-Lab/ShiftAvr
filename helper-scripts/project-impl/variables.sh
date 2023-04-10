@@ -9,6 +9,7 @@ mcu_atmega32A="atmega32"
 mcu_atmega328p="atmega328p"
 
 # cmake build caches
-source_dir="./shiftavr-core/"
+source_dir="$project_root/shiftavr-core/"
+examples_dir="$project_root/shiftavr-examples/"
 
 
