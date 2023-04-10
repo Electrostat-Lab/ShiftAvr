@@ -1,1 +1,0 @@
-/home/twisted/GradleProjects/ShiftAvr/avr8-gnu-toolchain-linux_x86_64/bin/avr-gcc -mmcu=atmega32 CMakeFiles/hello_uart.c.elf.dir/src/hello_uart.c.o -o hello_uart.c.elf  /home/twisted/GradleProjects/ShiftAvr/shiftavr-core/build/atmega32/libshiftavr.a 
