@@ -8,11 +8,19 @@ A modern implementation of avr-core and GNU libraries for avr microcontroller un
 
 #### The project `shiftavr-core` includes the following libraries: 
 - [x] libuart
+- [x] libadc
 - [ ] libspi
 - [ ] libtwi
 - [ ] libpwm
-- [ ] libadc
 - [ ] libtimer
+
+#### The project `shiftavr-examples` includes the following techdemos: 
+- [ ] hello_uart
+- [ ] hello_adc
+- [ ] hello_spi
+- [ ] hello_twi
+- [ ] hello_pwm
+- [ ] hello_timer
 
 #### The project `shiftavr-api` includes the following libraries: 
 - [ ] libmcp3008
