@@ -24,3 +24,9 @@ jobs:
         chmod +rwx ./helper-scripts/project-impl/compile-examples.sh  
         ./helper-scripts/project-impl/compile-examples.sh atmega32 hello_uart.c
         ./helper-scripts/project-impl/compile-examples.sh atmega328p hello_uart.c
+        
+    - name: compile-link-assemble shiftavr-examples/src/hello_adc.c
+      run: |
+        chmod +rwx ./helper-scripts/project-impl/compile-examples.sh  
+        ./helper-scripts/project-impl/compile-examples.sh atmega32 hello_adc.c
+        ./helper-scripts/project-impl/compile-examples.sh atmega328p hello_adc.c
