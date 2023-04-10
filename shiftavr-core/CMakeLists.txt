@@ -28,11 +28,17 @@ set(libuart "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/start.c"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/udr_println.c"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/udr_sprint.c"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/udr_sprintln.c")
+            
+set(libadc "${CMAKE_CURRENT_SOURCE_DIR}/src/libadc/adc_start_protocol.c"
+           "${CMAKE_CURRENT_SOURCE_DIR}/src/libadc/adc_start_conversion.c"
+           "${CMAKE_CURRENT_SOURCE_DIR}/src/libadc/adc_stop_protocol.c"
+           "${CMAKE_CURRENT_SOURCE_DIR}/src/libadc/adc_read.c"
+           "${CMAKE_CURRENT_SOURCE_DIR}/src/libadc/adc_conversion_isr.c")
 
 set(headers "${avr_headers}"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/include/")
 
-set(sources ${libuart})
+set(sources ${libuart} ${libadc})
 
 # add a library target
 add_library(${library} STATIC ${sources})
