@@ -1,8 +1,8 @@
 #include<uart/uart.h>
 
-void sprint(char* data) {
+void uart_sprint(char* data) {
     int i = 0;
     while (i < strlen(data)) {
-        cprint(&data[i++]);
+        uart_cprint(data[i++]);
     }
 }

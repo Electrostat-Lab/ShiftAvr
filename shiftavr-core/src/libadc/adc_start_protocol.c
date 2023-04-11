@@ -14,4 +14,8 @@ void adc_start_protocol() {
     /* setup ADCSRA */
     ADCSRA = (1 << ADEN) /*enable adc protocol*/ | (1 << ADPS2) | 
              (1 << ADPS1) | (1 << ADPS0) /*set clock prescaler to clk/128*/; 
+
+    if (adc_internal_callbacks != NULL && adc_internal_callbacks->adc_on_start_protocol != NULL) {
+        adc_internal_callbacks->adc_on_start_protocol();
+    }
 }

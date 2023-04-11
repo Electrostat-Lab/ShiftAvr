@@ -1,7 +1,6 @@
 #include<uart/uart.h>
 
-void cprint(char* data) {
+void uart_cprint(char data) {
     while (!(REG_UCSRA & (1 << BIT_UDRE)));
-    REG_UDR = *data;
-    startTransmitterISR();
+    REG_UDR = data;
 }

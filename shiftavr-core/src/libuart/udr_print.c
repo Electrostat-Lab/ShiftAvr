@@ -1,12 +1,11 @@
 #include<uart/uart.h>
 
-void print(const int64_t data, const uint8_t base) {
-    char* strBuffer = allocateStringBuffer();
+void uart_print(const int64_t data, const uint8_t base) {
+    char* str = allocate_buffer_address();
     // convert input to string
-    itoa(data, strBuffer, base);
-    int i = 0;
-    while (i < strlen(strBuffer)) {
-        cprint(&strBuffer[i++]);
+    itoa(data, str, base);
+    for (int i = 0; i < strlen(str); i++) {
+        uart_cprint(str[i]);
     }
-    free(strBuffer);
+    free(str);
 }

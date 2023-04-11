@@ -1,15 +1,15 @@
 /**
- * @file Serial.h
+ * @file uart.h
  * @author pavl_g.
  * @brief Controls the UART IO Protocol which involves sending and receiving bits and firing listeners upon that (Concrete Command pattern).
  * @version 0.1
  * @date 2022-07-02
  * 
- * @copyright Copyright (c) 2022
+ * @copyright The AVR-Sandbox Project, Copyright (c) 2022
  * 
  */
-#ifndef _SERIAL_UART
-#define _SERIAL_UART 1
+#ifndef _UART_H
+#define _UART_H 
 
 #include<avr/io.h>
 #include<string.h>
@@ -139,47 +139,34 @@
  * @example For binary base 2: 0b11110000 is the same as saying [const char str[] = {'1', '1' ,'1', '1', '0', '0', '0', '0', '\0'};],
  * i.e. one character for each bit plus one for the string terminator '\0' which is (NULL).     
  */
-#define allocateStringBuffer() ((char*) calloc(1, sizeof(char*))) 
+#define allocate_buffer_address() ((char*) calloc(1, sizeof(char*))) 
 
 /**
- * @brief Operates, controls, read/write to UART serial port.
+ * @brief Callbacks for the uart protocol, use the struct initializer to instantiate these pointers.
  */
-
-
-void onProtocolStarted();
-
-void onProtocolStopped();
-
-/**
-* @brief Triggered when the data receive is completed at the Rx pin.
-* 
-* @param data the received byte at the Rx pin.
-*/
-void onDataReceiveCompleted(const uint8_t);
+typedef struct {
+    void (*on_protocol_started)();
+    void (*on_protocol_stopped)();
+    void (*on_data_receive_completed)(const uint8_t);
+    void (*on_data_transmission_completed)(const uint8_t);
+    void (*on_databuffer_cleared)();
+} uart_callbacks;
 
 /**
-* @brief Triggered when the data transmit is completed at the Tx pin.
-* 
-* @param data the transmitted byte at the Tx pin which is equal to UDRn at that moment.
-*/
-void onDataTransmitCompleted(const uint8_t);
-
-void onDataBufferCleared(const uint8_t*);
-
-/**
- * @warning Internal use only.
- * 
- * @brief A volatile buffer to assign the transmitter data to the data register (UDRn).
- * @see Serial::UART::setTransmitDataRegister(const uint8_t* transmitData) for implementation.
+ * Interrupt-safe re-assignable callbacks.
  */
-volatile uint8_t* transmitData;
+volatile uart_callbacks* uart_internal_callbacks;
+
+static inline void uart_assign_callbacks(volatile uart_callbacks* in_callbacks) {
+    uart_internal_callbacks = in_callbacks;
+}
 
 /**
  * @brief Sets the Transmit Data Register to be used by the UDR when the UDRE bit is set.
  * 
- * @param transmitData the data buffer to transmit.
+ * @param data the data buffer to transmit.
  */
-void setTransmitDataRegister(const uint8_t* transmitData);
+void uart_set_transmitter_register(const uint8_t data);
 
 /**
  * @brief Starts the UART Protocol by setting up the control status registers and the baud rate register.
@@ -187,95 +174,95 @@ void setTransmitDataRegister(const uint8_t* transmitData);
  * 
  * @param BAUD_RATE_VAL the code for the baud rate.
  */
-void startProtocol(const uint16_t BAUD_RATE_VAL);
+void uart_start_protocol(const uint16_t BAUD_RATE_VAL);
 
 /**
  * @brief Stops the UART protocol by setting [UCSRB] to zero.
  */
-void stopProtocol();
+void uart_stop_protocol();
 
 /**
  * @warning Internal use only.
  * 
  * @brief Activates the ISR handler for the UDRE (Data register empty) bit.
  */
-void startDataRegisterEmptyBufferISR();
+void uart_start_udre_isr();
 
 /**
  * @warning Internal use only.
  * 
  * @brief Activates the ISR handler for the RXC bit (Receiver Complete).
  */
-void startReceiverISR();
+void uart_start_receiver_isr();
 
 /**
  * @warning Internal use only.
  * @brief Activates the ISR handler for the TXC bit (Transmitter Complete).
  */
-void startTransmitterISR();
+void uart_start_transmitter_isr();
 
 /**
  * @warning Internal use only.
  * 
  * @brief Deactivates the ISR handler for the UDRE (Data register empty) bit.
  */
-void stopDataRegisterEmptyBufferISR();
+void uart_stop_udre_isr();
 
 /**
  * @warning Internal use only.
  * 
  * @brief Deactivates the ISR handler for the RXC bit (Receiver Complete).
  */
-void stopReceiverISR();
+void uart_stop_receiver_isr();
 
 /**
  * @warning Internal use only.
  * 
  * @brief Deactivates the ISR handler for the TXC bit (Transmitter Complete).
  */
-void stopTransmitterISR();
+void uart_stop_transmitter_isr();
 
 /**
  * @brief Reads the [UDR0] Data register in ASCII as default.
  * 
  * @return uint8_t an 8-bit integer read from the UDR0, the output is in ascii.
  */
-uint8_t readASCII();
+volatile uint8_t uart_poll_read_ascii();
 
 /**
  * @brief Reads the [UDR0] Data register in Integers after converting from ASCII by subtracting the result from '0' aka [48].
  * 
  * @return uint8_t 
  */
-uint8_t readInteger();
+volatile uint8_t uart_poll_read_int();
 
 /**
  * @brief Prints a charachter data to the serial stream.
  * 
  * @param data a char data of 8-bit size.
  */
-void cprint(char* data);
+void uart_cprint(char data);
 
 /**
  * @brief Prints a charachter data to the serial stream in a new line.
  * 
  * @param data a char data of 8-bit size.
  */
-void cprintln(char* data);
+void uart_cprintln(char data);
 
 /**
  * @brief Prints a string (char array) buffer to the serial stream.
  * 
  * @param data the string buffer to print.
  */
-void sprint(char* data);
+void uart_sprint(char* data);
 
 /**
  * @brief Prints a string (char array) buffer to the serial stream in a new line with a carriage return [(\n\r)].
  * 
  * @param data the string buffer to print.
  */
-void sprintln(char* data);
+void uart_sprintln(char* data);
 
 /**
  * @brief Prints an integer data of max 64-bits with a base radix (2 for binary print or 10 for decimal print).
@@ -283,7 +270,7 @@ void sprintln(char* data);
  * @param data the integer to print.
  * @param base the base, either 2 for binary print ()
  */
-void print(const int64_t data, const uint8_t base);
+void uart_print(const int64_t data, const uint8_t base);
 
 /**
  * @brief Prints an integer data of max 64-bits with a base radix (2 for binary print or 10 for decimal print) 
@@ -293,7 +280,7 @@ void print(const int64_t data, const uint8_t base);
  * @param base the base, either 2 for binary print (with max size = 64 * sizeof(uint8_t) + 1) or 10 for decimal print
  * (with max size = 1 * sizeof(int64_t) + 1).
  */
-void println(const int64_t data, const uint8_t base);
+void uart_println(const int64_t data, const uint8_t base);
 
 
 #endif

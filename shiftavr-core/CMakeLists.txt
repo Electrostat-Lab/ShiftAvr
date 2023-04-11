@@ -16,10 +16,10 @@ set(COMPILER_OPTIONS "-mmcu=${TARGET}")
 
 set(avr_headers "${AVR_HOME}/avr/include/")
 
-set(libuart "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/start.c"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/stop.c"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/receiver_isr.c"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/transmitter_isr.c"
+set(libuart "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/uart_start_protocol.c"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/uart_stop_protocol.c"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/uart_receiver_isr.c"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/uart_transmitter_isr.c"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/udr_reset_isr.c"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/udr_cprint.c"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/libuart/udr_cprintln.c"

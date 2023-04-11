@@ -1,6 +1,6 @@
 #include<uart/uart.h>
 
-void sprintln(char* data) {
-    sprint(data);
-    sprint(NEW_LINE_CARRIAGE_R);
+void uart_sprintln(char* data) {
+    uart_sprint(data);
+    uart_sprint(NEW_LINE_CARRIAGE_R);
 }
