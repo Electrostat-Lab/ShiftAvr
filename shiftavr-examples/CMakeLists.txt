@@ -14,7 +14,7 @@ set(elf "${EXAMPLE}.elf")
 
 set(CMAKE_C_COMPILER "${AVR_HOME}/bin/avr-gcc")
 set(CMAKE_CXX_COMPILER "${AVR_HOME}/bin/avr-g++")
-set(COMPILER_OPTIONS "-mmcu=${TARGET}")
+set(COMPILER_OPTIONS "-mmcu=${TARGET} -O3")
 
 set(headers "${SHIFT_AVR}src/include")
 set(avr_headers "${AVR_HOME}/include")

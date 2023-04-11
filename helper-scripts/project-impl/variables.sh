@@ -13,3 +13,9 @@ source_dir="$project_root/shiftavr-core/"
 examples_dir="$project_root/shiftavr-examples/"
 
 
+# AVR-DUDE properties
+BAUD_RATE='57600'
+PORT='/dev/ttyUSB0'
+CHIP='atmega328p'
+CHIP_ALIAS='m328p'
+PROGRAMMER='arduino'
