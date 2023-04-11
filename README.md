@@ -15,8 +15,8 @@ A modern implementation of avr-core and GNU libraries for avr microcontroller un
 - [ ] libtimer
 
 #### The project `shiftavr-examples` includes the following techdemos: 
-- [ ] hello_uart
-- [ ] hello_adc
+- [x] hello_uart
+- [x] hello_adc
 - [ ] hello_spi
 - [ ] hello_twi
 - [ ] hello_pwm
