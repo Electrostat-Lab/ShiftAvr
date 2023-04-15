@@ -17,101 +17,9 @@
 #include<avr/interrupt.h>
 
 #if defined (__AVR_ATmega32__)
-
-/** UCSRA register */
-#   define REG_UCSRA UCSRA
-#   define BIT_RXC RXC
-#   define BIT_TXC TXC
-#   define BIT_UDRE UDRE 
-#   define BIT_FE FE 
-#   define BIT_PE PE 
-#   define BIT_U2X U2X 
-#   define BIT_MPCM MPCM
-
-/** UCSRB register */
-#   define REG_UCSRB UCSRB
-#   define BIT_RXCIE RXCIE
-#   define BIT_TXCIE TXCIE
-#   define BIT_UDRIE UDRIE
-#   define BIT_RXEN RXEN
-#   define BIT_TXEN TXEN
-#   define BIT_UCSZ2 UCSZ2
-#   define BIT_RXB8 RXB8
-#   define BIT_TXB8 TXB8
-
-/** UCSRC register */
-#   define REG_UCSRC UCSRC 
-#   define BIT_URSEL URSEL 
-#   define BIT_UMSEL UMSEL 
-#   define BIT_UPM0  UPM0 
-#   define BIT_UPM1  UPM1
-#   define BIT_USBS  USBS
-#   define BIT_UCSZ0 UCSZ0
-#   define BIT_UCSZ1 UCSZ1
-#   define BIT_UCPOL UCPOL
-
-#   define REG_UBRR UBRRH
-
-/** UBRRL register */
-#   define REG_UBRRL UBRRL
-
-/** UBRRH register */
-#   define REG_UBRRH UBRRH
-
-/** UDR register */
-#   define REG_UDR UDR
-
-#   define __vector_USART_RX USART_RXC_vect
-#   define __vector_USART_TX USART_TXC_vect
-
+#  include <uart/register/atmega32.h>
 #elif defined (__AVR_ATmega328P__)
-
-/** UCSRA register */
-#   define REG_UCSRA UCSR0A
-#   define BIT_RXC RXC0
-#   define BIT_TXC TXC0
-#   define BIT_UDRE UDRE0 
-#   define BIT_FE FE0 
-#   define BIT_PE PE0 
-#   define BIT_U2X U2X0 
-#   define BIT_MPCM MPCM0
-
-/** UCSRB register */
-#   define REG_UCSRB UCSR0B
-#   define BIT_RXCIE RXCIE0
-#   define BIT_TXCIE TXCIE0
-#   define BIT_UDRIE UDRIE0
-#   define BIT_RXEN RXEN0
-#   define BIT_TXEN TXEN0
-#   define BIT_UCSZ2 UCSZ02
-#   define BIT_RXB8 RXB80
-#   define BIT_TXB8 TXB80
-
-/** UCSRC register */
-#   define REG_UCSRC UCSR0C 
-#   define BIT_URSEL URSEL0 
-#   define BIT_UMSEL UMSEL0 
-#   define BIT_UPM0  UPM00 
-#   define BIT_UPM1  UPM01
-#   define BIT_USBS  USBS0
-#   define BIT_UCSZ0 UCSZ00
-#   define BIT_UCSZ1 UCSZ01
-#   define BIT_UCPOL UCPOL0
-
-#   define REG_UBRR UBRR0
-
-/** UBRRL register */
-#   define REG_UBRRL UBRR0L
-
-/** UBRRH register */
-#   define REG_UBRRH UBRR0H
-
-/** UDR register */
-#   define REG_UDR UDR0
-
-#   define __vector_USART_RX USART_RX_vect
-#   define __vector_USART_TX USART_TX_vect
-
+#  include <uart/register/atmega328p.h>
 #endif
 
 #define BAUD_RATE_9600 ((const uint8_t) 0x67) 
@@ -139,7 +47,7 @@
  * @example For binary base 2: 0b11110000 is the same as saying [const char str[] = {'1', '1' ,'1', '1', '0', '0', '0', '0', '\0'};],
  * i.e. one character for each bit plus one for the string terminator '\0' which is (NULL).     
  */
-#define allocate_buffer_address() ((char*) calloc(1, sizeof(char*))) 
+#define allocate_buffer() ((char*) calloc(1, sizeof(char))) 
 
 /**
  * @brief Callbacks for the uart protocol, use the struct initializer to instantiate these pointers.
@@ -281,6 +189,5 @@ void uart_print(const int64_t data, const uint8_t base);
  * (with max size = 1 * sizeof(int64_t) + 1).
  */
 void uart_println(const int64_t data, const uint8_t base);
-
 
 #endif
