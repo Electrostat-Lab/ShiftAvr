@@ -121,8 +121,8 @@ void adc_on_received(const uint16_t READ) {
 int main() {
     adc_start_protocol();
     adc_enable_isr();
-    // start conversion on adc channel 0
-    adc_start_conversion(ADC_MUX0);
+    // start conversion on [adc channel 0] with the [AREF = VCC] and Conversion speed = CLK/16
+    adc_start_conversion(ADC_MUX0, AVCC_VREF, CLK_16);
     while (1); /* Running forever! */
 }
 ```
@@ -134,7 +134,7 @@ int main() {
 void adc_on_received(const uint16_t READ) {
     // do stuff
     // restart conversion 
-    adc_start_conversion(ADC_MUX0);
+    adc_start_conversion(ADC_MUX0, AVCC_VREF, CLK_16);
 }
 
 int main() {

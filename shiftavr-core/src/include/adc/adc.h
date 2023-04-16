@@ -10,23 +10,28 @@
 #ifndef _ADC_H
 #define _ADC_H 
 
+/* Internal libraries used by [adc.h]! */
 #include<avr/io.h>
 #include<avr/interrupt.h>
 #include<string.h>
 #include<stdlib.h>
 
-/* define analog ADC pins based on the multiplexers codes */
-#define ADC_MUX0 ((const uint8_t) 0x00)
-#define ADC_MUX1 (ADC_MUX0 + 0x01)
-#define ADC_MUX2 (ADC_MUX1 + 0x01)
-#define ADC_MUX3 (ADC_MUX2 + 0x01)
-#define ADC_MUX4 (ADC_MUX3 + 0x01)
-#define ADC_MUX5 (ADC_MUX4 + 0x01)
-#define ADC_MUX6 (ADC_MUX5 + 0x01)
-#define ADC_MUX7 (ADC_MUX6 + 0x01)
+/* ADC pre-defined library parts! */
+#include<adc/control/clkprescaler.h>
+#include<adc/admux/channel.h>
+#include<adc/admux/vref.h>
 
 /**
  * @brief Callbacks for the uart protocol, use the struct initializer to instantiate these pointers.
+ * @example 
+ * volatile adc_callbacks _adc_callbacks = {
+ *     adc_on_received,
+ *      NULL,
+ *      NULL,
+ *      NULL,
+ *  };
+ * ...
+ * int main() { adc_assign_callbacks(&_adc_callbacks); ... while (1); }
  */
 typedef struct {
     /**
@@ -41,10 +46,15 @@ typedef struct {
 } adc_callbacks;
 
 /**
- * Interrupt-safe re-assignable callbacks.
+ * @brief Interrupt-safe re-assignable callbacks.
  */
 volatile adc_callbacks* adc_internal_callbacks;
 
+/**
+ * @brief Assigns the callbacks for the ADC conversion.
+ * 
+ * @param in_callbacks an interrupt-safe adc callback object.
+ */
 static inline void adc_assign_callbacks(volatile adc_callbacks* in_callbacks) {
     adc_internal_callbacks = in_callbacks;
 }
@@ -67,9 +77,13 @@ void adc_enable_isr();
 /**
  * @brief Starts the Analog to Digital conversion.
  * @note When setting the bit [ADIE] on the [ADCSRA] register, an interrupt service is fired once the conversion is completed.
+ * 
  * @param PIN the ADC MUX pin to read from.
+ * @param V_REF the reference voltage to use for the ADC, 
+ *              the reference voltage represents the voltage to compare against.
+ * @param CONVERSION_SPEED the speed of the adc conversion in relation to the crystal oscillator.
  */
-void adc_start_conversion(const uint8_t PIN);
+void adc_start_conversion(const uint8_t PIN, const uint8_t V_REF, const uint8_t CONVERSION_SPEED);
 
 /**
  * @brief Combines the readings of [ADCL] and [ADCH] data registers in a 16-bit software register.
