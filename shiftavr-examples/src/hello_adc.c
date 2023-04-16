@@ -57,5 +57,5 @@ int main() {
     adc_start_conversion(ADC_MUX0, AVCC_VREF, CLK_16);
 
     while (1); /* Running forever! */
-	return 0;
+    return 0;
 }
