@@ -8,21 +8,11 @@ void adc_on_protocol_started();
 void on_data_received(const uint8_t);
 void on_data_transmitted(const uint8_t);
 
-static inline void setup_adc() {
-    adc_start_protocol();
-    adc_enable_isr();
-    adc_start_conversion(ADC_MUX0);
-}
-
-static inline void setup_uart() {
-    uart_start_protocol(BAUD_RATE_57600);
-}
-
 void adc_on_received(const uint16_t READ) {
     // do stuff
     uart_println(READ, 10);
     // restart the adc conversion
-    setup_adc();
+    adc_start_conversion(ADC_MUX0, AVCC_VREF, CLK_16);
 }
 
 void adc_on_protocol_started() {
@@ -56,11 +46,16 @@ volatile uart_callbacks _uart_callbacks = {
 };
 
 int main() {
-    adc_assign_callbacks(&_adc_callbacks);
+    /* setup UART! */
     uart_assign_callbacks(&_uart_callbacks);
-    setup_uart();
-    setup_adc();
-    
+    uart_start_protocol(BAUD_RATE_57600);
+
+    /* setup ADC! */
+    adc_assign_callbacks(&_adc_callbacks);
+    adc_start_protocol();
+    adc_enable_isr();
+    adc_start_conversion(ADC_MUX0, AVCC_VREF, CLK_16);
+
     while (1); /* Running forever! */
-	return 0;
+    return 0;
 }
