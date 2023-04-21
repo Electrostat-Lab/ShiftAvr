@@ -11,7 +11,7 @@ A modern implementation of avr-core and GNU libraries for avr microcontroller un
 #### The project `shiftavr-core` includes the following libraries: 
 - [x] libuart
 - [x] libadc
-- [ ] libgpio
+- [x] libgpio
 - [ ] libspi
 - [ ] libtwi
 - [ ] libpwm
@@ -20,6 +20,8 @@ A modern implementation of avr-core and GNU libraries for avr microcontroller un
 #### The project `shiftavr-examples` includes the following techdemos: 
 - [x] hello_uart
 - [x] hello_adc
+- [x] hello_gpio_write
+- [x] hello_gpio_read
 - [ ] hello_spi
 - [ ] hello_twi
 - [ ] hello_pwm
