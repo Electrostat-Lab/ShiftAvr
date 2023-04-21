@@ -35,10 +35,18 @@ set(libadc "${CMAKE_CURRENT_SOURCE_DIR}/src/libadc/adc_start_protocol.c"
            "${CMAKE_CURRENT_SOURCE_DIR}/src/libadc/adc_read.c"
            "${CMAKE_CURRENT_SOURCE_DIR}/src/libadc/adc_conversion_isr.c")
 
+set(libgpio "${CMAKE_CURRENT_SOURCE_DIR}/src/libgpio/gpio_read.c"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/libgpio/gpio_fastread.c"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/libgpio/gpio_write.c"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/libgpio/port/part/gpio_part.c"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/libgpio/gpio_write.c"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/libgpio/gpio_toggle_pin_pullup.c"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/libgpio/gpio_toggle_universal_pullup.c")
+
 set(headers "${avr_headers}"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/include/")
 
-set(sources ${libuart} ${libadc})
+set(sources ${libuart} ${libadc} ${libgpio}) 
 
 # add a library target
 add_library(${library} STATIC ${sources})
