@@ -4,6 +4,10 @@
 
 [![](https://github.com/Software-Hardware-Codesign/ShiftAvr/actions/workflows/build-shiftavrcore.yml/badge.svg)](https://github.com/Software-Hardware-Codesign/ShiftAvr/actions) 
 
+> [!WARNING]
+>
+> Archived in [a migration process](https://github.com/Electrostat-Lab/Electrostatic-Sandbox/pull/62) to Electrostatic-Sandbox SDK.
+
 A modern implementation of avr-core and GNU libraries for avr microcontroller units purely written in C.
 
 ## This project is composed of several subprojects: 
